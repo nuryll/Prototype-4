@@ -1,4 +1,4 @@
-# 🥋 Sumo Battle Prototype (Unity Game)
+# 🥋 Sumo Battle (Unity Game)
 
 ## 🎮 Overview
 **Sumo Battle Prototype** is an arcade-style Unity game where the player must knock waves of enemies off a floating island. Use power-ups strategically to survive increasingly challenging enemy waves. This prototype demonstrates gameplay mechanics such as power-ups, enemy wave scaling, and game state management.
