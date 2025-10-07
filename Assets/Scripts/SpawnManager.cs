@@ -8,16 +8,24 @@ public class SpawnManager : MonoBehaviour
     public int waveNumber = 1;
     public GameObject powerupPrefab;
 
+    private GameManager gameManager;
+
+
     void Start()
     {
        
         SpawnEnemyWave(waveNumber);
         Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (gameManager == null || gameManager.isGameOver) return;
+
         enemyCount = FindObjectsByType<Enemy>(FindObjectsSortMode.None).Length;
 
         if (enemyCount == 0)
@@ -26,6 +34,9 @@ public class SpawnManager : MonoBehaviour
             SpawnEnemyWave(waveNumber);
             Instantiate(powerupPrefab, GenerateSpawnPosition(), powerupPrefab.transform.rotation);
         }
+
+        if (gameManager.isGameOver) return;
+
 
     }
 
@@ -41,7 +52,9 @@ public class SpawnManager : MonoBehaviour
 
     void SpawnEnemyWave(int enemiesToSpawn)
     {
-        for(int i = 0; i < enemiesToSpawn; i++)
+        if (gameManager != null && gameManager.isGameOver) return;
+
+        for (int i = 0; i < enemiesToSpawn; i++)
         {
             Instantiate(enemyPrefab, GenerateSpawnPosition(), enemyPrefab.transform.rotation);
         }

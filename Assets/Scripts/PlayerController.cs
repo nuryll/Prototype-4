@@ -10,18 +10,33 @@ public class PlayerController : MonoBehaviour
     private float powerupStrength = 15.0f;
     public GameObject powerupIndicator;
 
+    private GameManager gameManager;
+
+
     void Start()
     {
         playerRb = GetComponent<Rigidbody>();
         focalPoint = GameObject.Find("Focal Point");
+
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed); //AddForce: continuously along the direction of the force vector.
-        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0); // Position the powerup indicator below the player
+        playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed);
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0);
+        
+
+        // Check if the player falls below a certain height to trigger game over
+        if (transform.position.y < -5 && !gameManager.isGameOver)
+        {
+            gameManager.GameOver();
+        }
+
+
     }
 
     private void OnTriggerEnter(Collider other)
@@ -56,4 +71,5 @@ public class PlayerController : MonoBehaviour
             enemyRigidbody.AddForce(awayFromPlayer * powerupStrength, ForceMode.Impulse); // Apply a force to the enemy away from the player
         }
     }
+
 }
