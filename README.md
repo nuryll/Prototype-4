@@ -38,5 +38,3 @@
 6. Press **R** to restart the game  
 
 ---
-
-# Open the project in Unity
