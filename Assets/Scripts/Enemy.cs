@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public float speed;
+    public float speed = 3.0f;
     private Rigidbody enemyRb;
     private GameObject player;
 
@@ -16,6 +16,13 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         Vector3 lookDirection = (player.transform.position - transform.position).normalized; // Direction towards the player
+
         enemyRb.AddForce(lookDirection * speed); // Move towards the player
+
+        // Destroy the enemy if it falls below a certain height
+        if (transform.position.y < -10)
+        {
+            Destroy(gameObject);
+        }
     }
 }

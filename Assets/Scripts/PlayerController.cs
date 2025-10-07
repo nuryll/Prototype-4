@@ -20,7 +20,8 @@ public class PlayerController : MonoBehaviour
     void Update()
     {
         float forwardInput = Input.GetAxis("Vertical");
-        playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed); //AddForce: continuously along the direction of the force vector. 
+        playerRb.AddForce(focalPoint.transform.forward * forwardInput * speed); //AddForce: continuously along the direction of the force vector.
+        powerupIndicator.transform.position = transform.position + new Vector3(0, -0.5f, 0); // Position the powerup indicator below the player
     }
 
     private void OnTriggerEnter(Collider other)
@@ -31,6 +32,7 @@ public class PlayerController : MonoBehaviour
             hasPowerup = true;
             Destroy(other.gameObject);
             StartCoroutine(PowerupCountdownRoutine());
+            powerupIndicator.gameObject.SetActive(true); // Activate the powerup indicator
         }
     }
 
@@ -38,6 +40,7 @@ public class PlayerController : MonoBehaviour
     {
         yield return new WaitForSeconds(7); // Powerup lasts for 7 seconds
         hasPowerup = false;
+        powerupIndicator.gameObject.SetActive(false); // Deactivate the powerup indicator
     }
 
     private void OnCollisionEnter(Collision collision)
