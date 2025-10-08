@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         if (collision.gameObject.CompareTag("Enemy") && hasPowerup)
         {
             Rigidbody enemyRigidbody = collision.gameObject.GetComponent<Rigidbody>();
-            Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position); // Direction away from the player
+            Vector3 awayFromPlayer = (collision.gameObject.transform.position - transform.position); // Direction away from the player(enemy)
 
             Debug.Log("Player collided with " + collision.gameObject.name + " with powerup set to " + hasPowerup);
 
